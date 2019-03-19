@@ -1,11 +1,23 @@
-Package: sprmtrxR
+Package: gaius
 Type: Package
-Title: What the Package Does (Title Case)
-Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Title: Divide and Conquer Phylogenetic Super -Matrices and -Trees in R
+Version: 0.0.0
+Authors@R: person("Dom", "Bennett", role = c("aut", "cre"),
+    email = "dominic.john.bennett@gmail.com",
+    comment = c(ORCID = "0000-0003-2722-1359"))
+Maintainer: Dom Bennett <dominic.john.bennett@gmail.com>
+Description: 
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+RoxygenNote: 6.1.1
+URL: https://antonellilab.github.io/gaius
+BugReports: https://github.com/antonellilab/gaius/issues
+Language: en-GB
+Depends:
+    R (>= 3.3.0)
+Imports:
+    crayon
+Suggests:
+    testthat (>= 2.0),
+    knitr (>= 1.0)
