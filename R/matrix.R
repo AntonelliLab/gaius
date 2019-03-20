@@ -37,16 +37,19 @@ print.alignment <- function(x) {
   ntips <- ifelse(nrow(x) >= max_ntips, max_ntips, length(x))
   nclmns <- ifelse(ncol(x) >= max_nclmns, max_nclmns, ncol(x))
   part <- x[seq_len(ntips), seq_len(nclmns)]
+  max_tpnm <- max(nchar(rownames(part)) + 1)
+  nseq <- max_nclmns - max_tpnm - 8
   cat_line('An ', obj('alignment'),  ': ', stat(nrow(x)), ' tips x ',
            stat(ncol(x)), ' bps')
   for (i in seq_len(ntips)) {
     tip_nm <- paste0('$', rownames(part)[i])
-    nseq <- length(part[i, ]) - nchar(tip_nm)
+    nspaces <- max_tpnm - nchar(tip_nm)
+    spacer <- paste0(rep(' ', nspaces, replace = TRUE), collapse = '')
     sq <- paste0(part[i, seq_len(nseq)], collapse = '')
-    cat('... ', char(tip_nm), ': ', seq, ' ...\n', sep = '')
+    cat_line('... ', elem(tip_nm), spacer, ' ', seq(sq), ' ...')
   }
   if (nrow(x) > ntips) {
-    cat_line('... with ', stat(nrow(x) - ntips), ' more tips')
+    cat_line('... with ', stat(nrow(x) - ntips), ' more tip(s)')
   }
 }
 
