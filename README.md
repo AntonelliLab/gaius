@@ -4,6 +4,7 @@
 
 > *Gallia est omnis divisa in partes tres.* <br><br> from *Commentarii de Bello Gallico*, **Gaius Julius Caesar**, c. 50 B.C.
 
+----
 
 ## Gaius outline
 <img src="https://raw.githubusercontent.com/AntonelliLab/gaius/master/other/outline.png" height="1000" align="middle" alt="outline"/>
