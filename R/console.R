@@ -18,7 +18,7 @@ obj <- function(x) {
   crayon::red(encodeString(x, quote = "'"))
 }
 
-seq <- function(x) {
+sq <- function(x) {
   x <- strsplit(x = x, split = '')[[1]]
   pull <- !x %in% c('a', 't', 'c', 'g')
   x[pull] <- crayon::bgBlack(crayon::white(x[pull]))

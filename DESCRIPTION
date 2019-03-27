@@ -17,7 +17,8 @@ Language: en-GB
 Depends:
     R (>= 3.3.0)
 Imports:
-    crayon
+    crayon,
+    tools
 Suggests:
     testthat (>= 2.0),
     knitr (>= 1.0)
