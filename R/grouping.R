@@ -21,7 +21,7 @@ nms_from_alignments <- function(flpths) {
 }
 
 print.alignment_info <- function(x) {
-  cat('Alignment (', outsider:::stat(x$ntips), ') tips.\n', sep = '')
+  cat('Alignment (', stat(x$ntips), ') tips.\n', sep = '')
 }
 
 nm_match <- function(algnmnt_nms, tree_nms, algnmnt_pttrns = algnmnt_nms,
@@ -37,7 +37,8 @@ nm_match <- function(algnmnt_nms, tree_nms, algnmnt_pttrns = algnmnt_nms,
   calc <- function(i) {
     # Calc prop. Levenshtein distance, select tree name with lowest distance
     algnmnt_pttrn <- algnmnt_pttrns[[i]]
-    dists <- adist(x = algnmnt_pttrn, y = tree_pttrns, partial = TRUE)[1, ]
+    dists <- utils::adist(x = algnmnt_pttrn, y = tree_pttrns,
+                          partial = TRUE)[1, ]
     pdists <- dists/nchar(algnmnt_pttrn)
     pssbls <- which(pdists < max_dist)
     npssbls <- length(pssbls)

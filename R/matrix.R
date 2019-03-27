@@ -41,6 +41,7 @@ alignment_read <- function(flpths) {
 #' @title Generate a gaps matrix
 #' @description Return a matrix of TRUE and FALSE corresponding to '-' in a
 #' alignment.
+#' @param alignment alignment object
 #' @return gapmatrix
 gapmatrix_get <- function(alignment) {
   res <- alignment == '-'
@@ -49,14 +50,12 @@ gapmatrix_get <- function(alignment) {
   res
 }
 
-#' @export
 pmissing <- function(x) {
   UseMethod('pmissing', x)
 }
 
 #' @rdname gapmatrix_get
 #' @param x gapmatrix object
-#' @export
 pmissing.gapmatrix <- function(x) {
   sum(x)/(nrow(x) * ncol(x))
 }
@@ -65,6 +64,8 @@ pmissing.gapmatrix <- function(x) {
 #' @title Select sequences from alignments
 #' @description Return a alignment of just sequences corresponding to
 #' nms.
+#' @param alignment_list alignment list object
+#' @param nms names of tips to be selected
 #' @return alignment_list
 sequences_select <- function(alignment_list, nms) {
   alignment_get <- function(i) {
@@ -88,6 +89,9 @@ sequences_select <- function(alignment_list, nms) {
 #' @description Return a filtered alignment. Columns will be dropped
 #' that have fewer proportion of non-gaps then cutoff and genes will be dropped
 #' that are less than min_nbps long.
+#' @param alignment_list alignment list object
+#' @param cutoff Proportion of non-gaps
+#' @param min_nbps Minimum sequence length
 #' @return alignment_list
 sequences_filter <- function(alignment_list, cutoff = 0.9, min_nbps = 200) {
   calc <- function(alignment) {
@@ -109,6 +113,7 @@ sequences_filter <- function(alignment_list, cutoff = 0.9, min_nbps = 200) {
 #' @title Convert list of alignments into a supermatrix
 #' @description Return a supermatrix object from a list of alignments. The
 #' supermatrix object is smaller.
+#' @param alignment_list alignment list object
 #' @return supermatrix
 supermatrix_get <- function(alignment_list) {
   stick_together <- function(i) {
@@ -133,6 +138,8 @@ supermatrix_get <- function(alignment_list) {
 #' @title Drop tips from a supermatrix
 #' @description Return a supermatrix object with tips dropped that have more
 #' non-gaps than cutoff.
+#' @param supermatrix supermatrix object
+#' @param cutoff Proportion of non-gap cutoff
 #' @return supermatrix
 drop_tips <- function(supermatrix, cutoff = 0.5) {
   nmissing <- vapply(X = gregexpr(pattern = '-', text = supermatrix),
@@ -155,6 +162,7 @@ drop_tips <- function(supermatrix, cutoff = 0.5) {
 #' @param alignment_list list of alignments
 #' @param column_cutoff Min. prop. of non-gaps in an alignment column
 #' @param tip_cutoff Min. prop. of non-gaps in an alignment row
+#' @param min_ntips Min. no. of tips in a supermatrix
 #' @param min_ngenes Min. no. of genes in a supermatrix
 #' @param min_nbps Min. length (in base pairs) for a gene in a supermatrix
 #' @return supermatrix

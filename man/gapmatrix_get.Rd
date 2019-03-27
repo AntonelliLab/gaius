@@ -10,6 +10,8 @@ gapmatrix_get(alignment)
 \method{pmissing}{gapmatrix}(x)
 }
 \arguments{
+\item{alignment}{alignment object}
+
 \item{x}{gapmatrix object}
 }
 \value{

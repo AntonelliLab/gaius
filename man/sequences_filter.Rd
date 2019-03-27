@@ -6,6 +6,13 @@
 \usage{
 sequences_filter(alignment_list, cutoff = 0.9, min_nbps = 200)
 }
+\arguments{
+\item{alignment_list}{alignment list object}
+
+\item{cutoff}{Proportion of non-gaps}
+
+\item{min_nbps}{Minimum sequence length}
+}
 \value{
 alignment_list
 }

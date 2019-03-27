@@ -6,6 +6,9 @@
 \usage{
 supermatrix_get(alignment_list)
 }
+\arguments{
+\item{alignment_list}{alignment list object}
+}
 \value{
 supermatrix
 }

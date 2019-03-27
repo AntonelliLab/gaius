@@ -6,6 +6,11 @@
 \usage{
 sequences_select(alignment_list, nms)
 }
+\arguments{
+\item{alignment_list}{alignment list object}
+
+\item{nms}{names of tips to be selected}
+}
 \value{
 alignment_list
 }

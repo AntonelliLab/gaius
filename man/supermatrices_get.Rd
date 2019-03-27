@@ -17,6 +17,8 @@ supermatrices_get(groups, alignment_list, column_cutoff = 0.5,
 
 \item{tip_cutoff}{Min. prop. of non-gaps in an alignment row}
 
+\item{min_ntips}{Min. no. of tips in a supermatrix}
+
 \item{min_ngenes}{Min. no. of genes in a supermatrix}
 
 \item{min_nbps}{Min. length (in base pairs) for a gene in a supermatrix}

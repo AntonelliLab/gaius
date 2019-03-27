@@ -1,5 +1,5 @@
 #' @export
-print.alignment <- function(x) {
+print.alignment <- function(x, ...) {
   max_ntips <- 10
   max_nclmns <- options()$width
   ntips <- ifelse(nrow(x) >= max_ntips, max_ntips, length(x))
@@ -22,12 +22,12 @@ print.alignment <- function(x) {
 }
 
 #' @export
-print.alignment_list <- function(x) {
+print.alignment_list <- function(x, ...) {
   cat_line('List of ', stat(length(x)), ' alignments')
 }
   
 #' @export
-print.supermatrix <- function(x) {
+print.supermatrix <- function(x, ...) {
   # stats
   nbps <- sum(attr(x, 'nbps'))
   ntips <- length(x)
@@ -61,6 +61,6 @@ print.supermatrix <- function(x) {
 }
 
 #' @export
-print.supermatrices <- function(x) {
+print.supermatrices <- function(x, ...) {
   cat('supermatrices object of [', length(x), ']', sep = '')
 }

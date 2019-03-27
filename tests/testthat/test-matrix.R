@@ -70,6 +70,7 @@ test_that('supermatrix_get() works', {
   filtered <- gaius:::sequences_filter(alignment_list = selected, cutoff = 0.5,
                                        min_nbps = 200)
   supermatrix <- gaius:::supermatrix_get(alignment_list = filtered)
+  # TODO
 })
 test_that('drop_tips() works', {
   # TODO

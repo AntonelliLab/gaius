@@ -6,6 +6,11 @@
 \usage{
 drop_tips(supermatrix, cutoff = 0.5)
 }
+\arguments{
+\item{supermatrix}{supermatrix object}
+
+\item{cutoff}{Proportion of non-gap cutoff}
+}
 \value{
 supermatrix
 }
