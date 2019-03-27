@@ -23,7 +23,24 @@ print.alignment <- function(x, ...) {
 
 #' @export
 print.alignment_list <- function(x, ...) {
-  cat_line('List of ', stat(length(x)), ' alignments')
+  cat_line(obj('alignment_list'), ' object, with ', stat(length(x)), ' ',
+           obj('alignment'), ' objects\n')
+  if (length(x) > 0) {
+    nm <- names(x)[[1]]
+    if (!is.null(nm)) {
+      cat_line(elem(paste0('[["', nm, '"]] ...')))
+    } else {
+      cat_line(elem('[[1]] ...'))
+    }
+    print(x[[1]])
+    cat_line()
+    nm <- names(x)[[length(x)]]
+    if (!is.null(nm)) {
+      cat_line(elem(paste0('... [["', nm, '"]]')))
+    } else {
+      cat_line(elem(paste0('... [[', length(x), ']]')))
+    }
+  }
 }
   
 #' @export
@@ -62,5 +79,22 @@ print.supermatrix <- function(x, ...) {
 
 #' @export
 print.supermatrices <- function(x, ...) {
-  cat('supermatrices object of [', length(x), ']', sep = '')
+  cat_line(obj('supermatices'), ' list, with ', stat(length(x)), ' ',
+           obj('supermatrix'), ' objects\n')
+  if (length(x) > 0) {
+    nm <- names(x)[[1]]
+    if (!is.null(nm)) {
+      cat_line(elem(paste0('[["', nm, '"]] ...')))
+    } else {
+      cat_line(elem('[[1]] ...'))
+    }
+    print(x[[1]])
+    cat_line()
+    nm <- names(x)[[length(x)]]
+    if (!is.null(nm)) {
+      cat_line(elem(paste0('... [["', nm, '"]]')))
+    } else {
+      cat_line(elem(paste0('... [[', length(x), ']]')))
+    }
+  }
 }
