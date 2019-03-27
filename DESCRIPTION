@@ -22,4 +22,5 @@ Imports:
     tools
 Suggests:
     testthat (>= 2.0),
-    knitr (>= 1.0)
+    knitr (>= 1.0),
+    ape

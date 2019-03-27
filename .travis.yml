@@ -10,7 +10,11 @@ pandoc: false
 
 warnings_are_errors: true
 sudo: required
-  
+
+r_binary_packages:
+ - ape
+ - testthat
+
 r_github_packages:
   - jimhester/covr
 
