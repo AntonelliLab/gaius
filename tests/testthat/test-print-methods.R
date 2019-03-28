@@ -2,14 +2,22 @@
 library(gaius)
 library(testthat)
 
-# Vars ----
-data_dir <- gaius:::datadir_get()
-alignment_dir <- file.path(data_dir, 'alignment.fasta')
-alignments_dir <- file.path(data_dir, 'alignments')
-alignments_files <- file.path(alignments_dir, list.files(path = alignments_dir,
-                                                         pattern = '.fasta'))
-# sample for speed
-alignments_files <- sample(alignments_files, 5)
+# Data ----
+data("alignment")
+data("alignment_list")
+data("supermatrix")
 
 # Running ----
-context('Testing \'matrix\'')
+context('Testing \'print-methods\'')
+test_that('print.alignment() works', {
+  expect_null(print(alignment))
+})
+test_that('print.alignment_list() works', {
+  expect_null(print(alignment_list))
+})
+test_that('print.supermatrix() works', {
+  expect_null(print(supermatrix))
+})
+test_that('print.supermatrices() works', {
+  expect_null(print(supermatrices))
+})

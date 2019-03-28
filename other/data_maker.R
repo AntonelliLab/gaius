@@ -40,4 +40,13 @@ save(object = supermatrix, file = file.path('data', 'supermatrix.rda'),
      compress = 'xz')
 
 # supermatrices ---
-# TODO
+groups <- list('n1' = paste0('t', 1:4),
+               'n2' = paste0('t', 5:8),
+               'unmatched' = paste0('t', 9:10))
+supermatrices <- supermatrices_get(groups = groups,
+                                   alignment_list = alignment_list,
+                                   column_cutoff = 0.1, tip_cutoff = 0.1,
+                                   min_ntips = 2, min_ngenes = 2,
+                                   min_nbps = 200)
+save(object = supermatrices, file = file.path('data', 'supermatrices.rda'),
+     compress = 'xz')
