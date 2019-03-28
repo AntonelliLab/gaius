@@ -98,3 +98,28 @@ print.supermatrices <- function(x, ...) {
     }
   }
 }
+
+print.matched_names <- function(x) {
+  format_text <- function(y) {
+    n <- ifelse(length(y) > 3, 3, length(y))
+    paste0(paste0(y[1:n], collapse = ', '), ' ...')
+  }
+  cat('[', length(x$alignment), '] names matched:\n',
+      '... from `$alignment` ', format_text(x$alignment),
+      '\n... to `$tree` ', format_text(x$tree),
+      '\n[', length(x$unmatched), '] unmatched.\n', sep = '')
+}
+
+print.groups <- function(x) {
+  nmatched <- vapply(X = x, FUN = length, integer(1))
+  nunmatched <- nmatched[['unmatched']]
+  nmatched <- sum(nmatched[names(nmatched) != 'unmatched'])
+  cat('Tips group object of [', length(x), '] elements:\n', '... [', nmatched,
+      '] tips in mono\n... [', nunmatched, '] tips in super',
+      sep = '')
+}
+
+print.alignment_info <- function(x) {
+  cat('Alignment (', stat(x$ntips), ') tips.\n', sep = '')
+}
+
