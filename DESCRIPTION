@@ -19,8 +19,10 @@ Depends:
 Imports:
     crayon,
     treeman,
-    tools
+    tools,
+    seqinr
 Suggests:
     testthat (>= 2.0),
     knitr (>= 1.0),
-    ape
+    ape,
+    msaR
