@@ -33,7 +33,7 @@ format_guess <- function(flpth) {
 #' file extension.
 #' @param flpth File path to output file. Character.
 #' @param format Sequence file format. Character.
-#' @seealso \link{\code{seqinr::read.alignment}}
+#' @seealso \code{\link[seqinr]{read.alignment}}
 #' @return alignment
 .alignment_read <- function(flpth, format) {
   if (format == 'guess') {
@@ -69,7 +69,7 @@ format_guess <- function(flpth) {
     list('sqs' = sqs, 'nms' = nms)
   }
   # TODO: make this switch based on inherits()
-  tmp <- switch(is(x)[[1]], alignment = sqs_from_alignment(x),
+  tmp <- switch(methods::is(x)[[1]], alignment = sqs_from_alignment(x),
                 supermatrix = sqs_from_supermatrix(x),
                 stop(paste0('Hmm.... ', obj('x'),
                             ' doesn\t seem to be a sequence object.')))
@@ -89,7 +89,7 @@ format_guess <- function(flpth) {
 #' @param flpths File path(s) to alignment file(s)
 #' @param format Sequnece file format. Default 'guess'. Character.
 #' @return alignment list
-#' @seealso \link{\code{seqinr::read.alignment}}
+#' @seealso \code{\link[seqinr]{read.alignment}}
 #' @export
 alignment_read <- function(flpths, format = c('guess', "clustal", "msf", "mase",
                                               "phylip", "fasta")) {

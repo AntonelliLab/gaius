@@ -3,6 +3,7 @@
 #' @name viz
 #' @title Visualise an alignment or supermatrix
 #' @description Plot a Shiny multiple alignment object.
+#' @param x alignment object
 #' @return NULL
 NULL
 
@@ -12,7 +13,6 @@ viz <- function(x) {
 }
 
 #' @rdname viz
-#' @param x alignment object
 #' @export
 viz.alignment <- function(x) {
   nms <- rownames(x)
@@ -21,7 +21,6 @@ viz.alignment <- function(x) {
 }
 
 #' @rdname viz
-#' @param x alignment object
 #' @export
 viz.supermatrix <- function(x) {
   nms <- names(x)

@@ -25,5 +25,5 @@ Available file formats: "clustal", "msf", "mase", "phylip" and
 "fasta".
 }
 \seealso{
-\link{\code{seqinr::read.alignment}}
+\code{\link[seqinr]{read.alignment}}
 }

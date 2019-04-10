@@ -12,8 +12,6 @@
 }
 \arguments{
 \item{x}{alignment object}
-
-\item{x}{alignment object}
 }
 \description{
 Plot a Shiny multiple alignment object.

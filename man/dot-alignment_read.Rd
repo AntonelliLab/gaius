@@ -22,5 +22,5 @@ If \code{format} is 'guess', file format will be determined from
 file extension.
 }
 \seealso{
-\link{\code{seqinr::read.alignment}}
+\code{\link[seqinr]{read.alignment}}
 }
