@@ -17,6 +17,7 @@ Language: en-GB
 Depends:
     R (>= 3.3.0)
 Imports:
+    treeman,
     methods,
     crayon,
     treeman,

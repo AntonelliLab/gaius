@@ -1,3 +1,4 @@
+# Private ----
 #' @name nms_from_fasta
 #' @title Read tip labels from sequence file
 #' @description Return .
@@ -9,7 +10,6 @@ nms_from_fasta <- function(flpth) {
   sub(pattern = '^>', replacement = '', nms)
 }
 
-
 alignment_info_get <- function(flpth) {
   nms <- nms_from_fasta(flpth = flpth)
   res <- list(nms = nms, ntips = length(nms), flpth = flpth)
@@ -17,7 +17,31 @@ alignment_info_get <- function(flpth) {
   res
 }
 
-nms_from_alignments <- function(flpths) {
+group_search <- function(matching_tree_names, tree_file) {
+  group_get <- function(tree, groups) {
+    ptids <- treeman::getNdSlt(tree = tree, slt_nm = 'ptid', id = tree@root)
+    ptids <- ptids[!ptids %in% tree@tips]
+    for (ptid in ptids) {
+      subtree <- treeman::getSubtree(tree = tree, id = ptid)
+      pssbls <- unname(matching_tree_names[matching_tree_names %in%
+                                             subtree@tips])
+      size <- length(pssbls)
+      if (size <= pget('max_ntips') & size >= pget('min_ntips')) {
+        groups[[ptid]] <- pssbls
+      } else {
+        if (subtree@ntips > pget('min_ntips')) {
+          groups <- group_get(tree = subtree, groups = groups)
+        }
+      }
+    }
+    groups
+  }
+  tree <- treeman::readTree(file = tree_file)
+  group_get(tree = tree, groups = list())
+}
+
+# Public ----
+names_from_alignments <- function(flpths) {
   calc <- function(flpth) {
     alignment <- alignment_info_get(flpth = flpth)
     alignment[['nms']]
@@ -26,7 +50,13 @@ nms_from_alignments <- function(flpths) {
   unique(unlist(nms))
 }
 
-name_match <- function(alignment_names, tree_names, max_dist = .1,
+names_from_tree <- function(flpth) {
+  # TODO: avoid reading in tree?
+  tree <- treeman::readTree(file = flpth)
+  gsub(pattern = '\\s', replacement = "_", x = tree@tips)
+}
+
+name_match <- function(alignment_names, tree_names,
                        alignment_patterns = alignment_names,
                        tree_patterns = tree_names) {
   # Checks
@@ -43,7 +73,7 @@ name_match <- function(alignment_names, tree_names, max_dist = .1,
     dists <- utils::adist(x = alignment_pattern, y = tree_patterns,
                           partial = TRUE)[1, ]
     pdists <- dists/nchar(alignment_pattern)
-    pssbls <- which(pdists < max_dist)
+    pssbls <- which(pdists < pget('max_name_dist'))
     npssbls <- length(pssbls)
     if (npssbls > 1) {
       res <- tree_names[pssbls[which.min(pdists[pssbls])]]
@@ -65,27 +95,26 @@ name_match <- function(alignment_names, tree_names, max_dist = .1,
   res
 }
 
-groups_get <- function(matched_names, tree, max_size, min_size) {
-  group_get <- function(tree, groups) {
-    ptids <- treeman::getNdSlt(tree = tree, slt_nm = 'ptid', id = tree@root)
-    ptids <- ptids[!ptids %in% tree@tips]
-    for (ptid in ptids) {
-      subtree <- treeman::getSubtree(tree = tree, id = ptid)
-      pssbls <- unname(nms[nms %in% subtree@tips])
-      size <- length(pssbls)
-      if (size <= max_size & size >= min_size) {
-        groups[[ptid]] <- pssbls
-      } else {
-        if (subtree@ntips > min_size) {
-          groups <- group_get(tree = subtree, groups = groups)
-        }
-      }
-    }
-    groups
+groups_get <- function(tree_file, alignment_files = NULL,
+                       matched_names = NULL) {
+  if (is.null(matched_names) & !is.null(alignment_files)) {
+    # keep only the first part of the word for the patterns
+    tree_names <- names_from_tree(flpth = tree_file)
+    tree_patterns <- sub(pattern = '_.*$', replacement = '', x = tree_names)
+    alignment_names <- names_from_alignments(flpths = alignment_files)
+    alignment_patterns <- sub(pattern = '\\s.*$', replacement = '',
+                              x = alignment_names)
+    matched_names <- name_match(alignment_names = alignment_names,
+                                tree_names = tree_names,
+                                alignment_patterns = alignment_patterns,
+                                tree_patterns = tree_patterns)
+  } else {
+    # TODO
+    stop()
   }
-  nms <- matched_names$tree
-  alignment_names <- matched_names$alignment
-  groups <- group_get(tree = tree, groups = list())
+  nms <- matched_names[['tree']]
+  alignment_names <- matched_names[['alignment']]
+  groups <- group_search(matching_tree_names = nms, tree_file = tree_file)
   res <- lapply(X = groups, function(x) alignment_names[nms %in% x])
   unmatched <- c(matched_names[['unmatched']],
                  alignment_names[!alignment_names %in% unlist(res)])
