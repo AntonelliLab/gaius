@@ -26,7 +26,7 @@ default_pget <- function() {
 #' @rdname parameters
 #' @param val Value to be assigned to parameter
 #' @export
-pset <- function(val, parameter = names(default_parameters)) {
+pset <- function(val, parameter = names(default_pget())) {
   if (length(parameter) != length(val)) {
     stop(paste0(char(val), " and ", char(parameter), " not the same length."))
   }
@@ -48,7 +48,7 @@ pset <- function(val, parameter = names(default_parameters)) {
 
 #' @rdname parameters
 #' @export
-pget <- function(parameter = names(default_parameters)) {
+pget <- function(parameter = names(default_pget())) {
   nm <- match.arg(arg = parameter, several.ok = TRUE)
   prmtrs <- options()[['gaius_parameters']]
   if (length(nm) == 1) {

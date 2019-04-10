@@ -12,9 +12,9 @@ default_pset()
 
 default_pget()
 
-pset(val, parameter = names(default_parameters))
+pset(val, parameter = names(default_pget()))
 
-pget(parameter = names(default_parameters))
+pget(parameter = names(default_pget()))
 }
 \arguments{
 \item{val}{Value to be assigned to parameter}
