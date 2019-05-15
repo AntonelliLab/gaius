@@ -20,7 +20,7 @@ Imports:
     treeman,
     methods,
     crayon,
-    treeman,
+    outsider,
     tools,
     seqinr
 Suggests:

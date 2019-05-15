@@ -1,3 +1,9 @@
+# TODO:
+# - alignment function
+# - phylogeny function
+# - supertree function
+
+
 readSqs <- function(fl) {
   all_data <- readLines(fl)
   sqs <- list()

@@ -16,6 +16,8 @@ r_binary_packages:
  - testthat
 
 r_github_packages:
+  - antonellilab/outsider.base
+  - antonellilab/outsider
   - jimhester/covr
 
 after_success:
