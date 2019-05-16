@@ -2,11 +2,17 @@
 % Please edit documentation in R/matrix.R
 \name{supermatrices_get}
 \alias{supermatrices_get}
+\alias{sift}
+\alias{sift.supermatrices}
 \title{Create supermatrices from list of alignments and groups object}
 \usage{
 supermatrices_get(groups, alignment_list, column_cutoff = 0.5,
   tip_cutoff = column_cutoff, min_ntips = 5, min_ngenes = 5,
   min_nbps = 200)
+
+sift(x, ...)
+
+\method{sift}{supermatrices}(x, keep = NULL, drop = NULL)
 }
 \arguments{
 \item{groups}{groups object, determines names of monophyletic groups}
@@ -22,9 +28,17 @@ supermatrices_get(groups, alignment_list, column_cutoff = 0.5,
 \item{min_ngenes}{Min. no. of genes in a supermatrix}
 
 \item{min_nbps}{Min. length (in base pairs) for a gene in a supermatrix}
+
+\item{x}{supermatrices}
+
+\item{keep}{Names of matrices to keep, character vector.}
+
+\item{drop}{Names of matrices to drop, character vector}
 }
 \value{
-supermatrix
+supermatrices
+
+supermatrices
 }
 \description{
 Return a supermatrices object from a list of alignments

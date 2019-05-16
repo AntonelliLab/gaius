@@ -19,7 +19,7 @@ mafft <- function(sequence_files, alignment_files) {
   foo <- outsider::module_import('mafft', repo = 'dombennett/om..mafft')
   alignment_files <- paste0(alignment_files, '_mafft_alignment.fasta')
   for (i in seq_along(sequence_files)) {
-    foo('--auto', sequence_files[[i]], '>', alignment_files[[i]])
+    foo(c('--auto', sequence_files[[i]], '>', alignment_files[[i]]))
   }
   alignment_files
 }

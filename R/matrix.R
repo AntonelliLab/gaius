@@ -126,7 +126,7 @@ drop_tips <- function(supermatrix, cutoff = 0.5) {
 #' @param min_ntips Min. no. of tips in a supermatrix
 #' @param min_ngenes Min. no. of genes in a supermatrix
 #' @param min_nbps Min. length (in base pairs) for a gene in a supermatrix
-#' @return supermatrix
+#' @return supermatrices
 #' @export
 supermatrices_get <- function(groups, alignment_list, column_cutoff = .5,
                               tip_cutoff = column_cutoff, min_ntips = 5,
@@ -157,4 +157,38 @@ supermatrices_get <- function(groups, alignment_list, column_cutoff = .5,
   attr(res, 'tips') <- all_tips
   class(res) <- 'supermatrices'
   res
+}
+
+# TODO: update docs
+#' @rdname supermatrices_get
+#' @export
+sift <- function(x, ...) {
+  UseMethod('sift', x)
+}
+
+#' @rdname supermatrices_get
+#' @param x supermatrices
+#' @param keep Names of matrices to keep, character vector.
+#' @param drop Names of matrices to drop, character vector
+#' @return supermatrices
+#' @export
+sift.supermatrices <- function(x, keep = NULL, drop = NULL) {
+  check <- function(nms) {
+    pull <- nms %in% names(x)
+    if (!all(pull)) {
+      nms[!pull]
+      msg <- paste0('Names not found:\n',
+                    paste0(char(nms[!pull]), collapse = ', '))
+      stop(msg)
+    }
+    names(x) %in% nms
+  }
+  if (!is.null(keep)) {
+    x <- x[check(nms = keep)]
+  }
+  if (!is.null(drop)) {
+    x <- x[!check(nms = drop)]
+  }
+  class(x) <- 'supermatrices'
+  x
 }

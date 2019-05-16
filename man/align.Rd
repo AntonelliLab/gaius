@@ -4,7 +4,7 @@
 \alias{align}
 \title{Generate alignments from sequences}
 \usage{
-align(sequence_files, method)
+align(sequence_files, method = c("mafft", "pasta"))
 }
 \arguments{
 \item{sequence_files}{file paths to sequence files}

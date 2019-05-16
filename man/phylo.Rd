@@ -4,7 +4,7 @@
 \alias{phylo}
 \title{Generate phylogenies from supermatrices}
 \usage{
-phylo(supermatrices, method)
+phylo(supermatrices, method = c("raxml", "astral"))
 }
 \arguments{
 \item{supermatrices}{supermatrices object}
