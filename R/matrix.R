@@ -128,11 +128,16 @@ drop_tips <- function(supermatrix, cutoff = 0.5) {
 #' @param min_nbps Min. length (in base pairs) for a gene in a supermatrix
 #' @return supermatrices
 #' @export
-supermatrices_get <- function(groups, alignment_list, column_cutoff = .5,
+supermatrices_get <- function(alignment_list, groups = NULL, column_cutoff = .5,
                               tip_cutoff = column_cutoff, min_ntips = 5,
                               min_ngenes = 5, min_nbps = 200) {
   res <- list()
   all_tips <- character(0)
+  if (is.null(groups)) {
+    nms <- unique(unname(unlist(lapply(X = alignment_list, FUN = rownames))))
+    groups <- list('all' = nms)
+    class(groups) <- 'groups'
+  }
   for (grp_id in names(groups)) {
     nms <- groups[[grp_id]]
     # select sequences from alignments

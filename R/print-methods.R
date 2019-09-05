@@ -2,7 +2,7 @@
 print.alignment <- function(x, ...) {
   max_ntips <- 10
   max_nclmns <- options()$width
-  ntips <- ifelse(nrow(x) >= max_ntips, max_ntips, length(x))
+  ntips <- ifelse(nrow(x) >= max_ntips, max_ntips, nrow(x))
   nclmns <- ifelse(ncol(x) >= max_nclmns, max_nclmns, ncol(x))
   part <- x[seq_len(ntips), seq_len(nclmns)]
   max_tpnm <- max(nchar(rownames(part)) + 1)

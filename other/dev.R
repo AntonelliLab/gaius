@@ -1,3 +1,13 @@
+
+devtools::load_all()
+input_dir <- "/Users/djb208/Coding/supersmartR-workshop/pipelines/1_multigene/3_align"
+alignment_files <- file.path(input_dir, list.files(path = input_dir,
+                                                   pattern = '.fasta'))
+alignment_list <- alignment_read(flpths = alignment_files)
+
+
+
+
 # TODO:
 # - alignment function
 # - phylogeny function
@@ -33,7 +43,7 @@ writeSqs <- function(sqs, fl) {
 partition <- function(lngths, fl) {
   gene <- strt <- 1
   prttn_txt <- ''
-  for(lngth in lngths) {
+  for (lngth in lngths) {
     end <- lngth + strt - 1
     prttn_txt <- paste0(prttn_txt, 'DNA, gene',
                    gene, ' = ', strt, '-',
@@ -41,7 +51,7 @@ partition <- function(lngths, fl) {
     strt <- end + 1
     gene <- gene + 1
   }
-  cat(prttn_txt, file=fl)
+  cat(prttn_txt, file = fl)
 }
 
 wd <- '~/Desktop/supermatrix_testing/'

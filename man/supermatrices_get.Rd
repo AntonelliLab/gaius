@@ -6,7 +6,7 @@
 \alias{sift.supermatrices}
 \title{Create supermatrices from list of alignments and groups object}
 \usage{
-supermatrices_get(groups, alignment_list, column_cutoff = 0.5,
+supermatrices_get(alignment_list, groups = NULL, column_cutoff = 0.5,
   tip_cutoff = column_cutoff, min_ntips = 5, min_ngenes = 5,
   min_nbps = 200)
 
@@ -15,9 +15,9 @@ sift(x, ...)
 \method{sift}{supermatrices}(x, keep = NULL, drop = NULL)
 }
 \arguments{
-\item{groups}{groups object, determines names of monophyletic groups}
-
 \item{alignment_list}{list of alignments}
+
+\item{groups}{groups object, determines names of monophyletic groups}
 
 \item{column_cutoff}{Min. prop. of non-gaps in an alignment column}
 
