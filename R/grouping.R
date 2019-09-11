@@ -41,6 +41,7 @@ group_search <- function(matching_tree_names, tree_file) {
 }
 
 # Public ----
+#' @export
 names_from_alignments <- function(flpths) {
   calc <- function(flpth) {
     alignment <- alignment_info_get(flpth = flpth)
@@ -50,12 +51,14 @@ names_from_alignments <- function(flpths) {
   unique(unlist(nms))
 }
 
+#' @export
 names_from_tree <- function(flpth) {
   # TODO: avoid reading in tree?
   tree <- treeman::readTree(file = flpth)
   gsub(pattern = '\\s', replacement = "_", x = tree@tips)
 }
 
+#' @export
 name_match <- function(alignment_names, tree_names,
                        alignment_patterns = alignment_names,
                        tree_patterns = tree_names) {
@@ -95,6 +98,7 @@ name_match <- function(alignment_names, tree_names,
   res
 }
 
+#' @export
 groups_get <- function(tree_file, alignment_files = NULL,
                        matched_names = NULL) {
   if (is.null(matched_names) & !is.null(alignment_files)) {
@@ -108,12 +112,12 @@ groups_get <- function(tree_file, alignment_files = NULL,
                                 tree_names = tree_names,
                                 alignment_patterns = alignment_patterns,
                                 tree_patterns = tree_patterns)
-  } else {
-    # TODO
-    stop()
   }
   nms <- matched_names[['tree']]
   alignment_names <- matched_names[['alignment']]
+  if (length(nms) == 0 & length(alignment_names) == 0) {
+    warning('No names matched.')
+  }
   groups <- group_search(matching_tree_names = nms, tree_file = tree_file)
   res <- lapply(X = groups, function(x) alignment_names[nms %in% x])
   unmatched <- c(matched_names[['unmatched']],

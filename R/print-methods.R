@@ -99,6 +99,7 @@ print.supermatrices <- function(x, ...) {
   }
 }
 
+#' @export
 print.matched_names <- function(x) {
   format_text <- function(y) {
     n <- ifelse(length(y) > 3, 3, length(y))
@@ -110,6 +111,7 @@ print.matched_names <- function(x) {
       '\n[', length(x$unmatched), '] unmatched.\n', sep = '')
 }
 
+#' @export
 print.groups <- function(x) {
   nmatched <- vapply(X = x, FUN = length, integer(1))
   nunmatched <- nmatched[['unmatched']]
@@ -119,6 +121,7 @@ print.groups <- function(x) {
       sep = '')
 }
 
+#' @export
 print.alignment_info <- function(x) {
   cat('Alignment (', stat(x$ntips), ') tips.\n', sep = '')
 }

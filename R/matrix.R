@@ -115,6 +115,39 @@ drop_tips <- function(supermatrix, cutoff = 0.5) {
   res
 }
 
+backbone_sequences_select <- function(groups, alignment_list) {
+  backbone_alignment_list <- alignment_list
+  to_drop <- NULL
+  for (grp_id in names(groups)) {
+    nms <- groups[[grp_id]]
+    for (i in seq_along(backbone_alignment_list)) {
+      al <- backbone_alignment_list[[i]]
+      pull <- rownames(al) %in% nms
+      if (all(pull)) {
+        to_drop <- c(i, to_drop)
+        next
+      }
+      if (any(pull)) {
+        pssbls <- rownames(al)[pull]
+        if (length(pssbls) > 1) {
+          # select the one with fewest gaps
+          selected <- pssbls[which.min(rowSums(al[pssbls, ] == '-'))]
+        } else {
+          selected <- pssbls
+        }
+        rownames(al)[rownames(al) == selected] <- grp_id
+        al <- al[!rownames(al) %in% pssbls, ]
+        class(al) <- 'alignment'
+        backbone_alignment_list[[i]] <- al
+      }
+    }
+  }
+  backbone_alignment_list <- backbone_alignment_list[-1 * to_drop]
+  class(backbone_alignment_list) <- 'alignment_list'
+  nms <- unique(unlist(lapply(X = backbone_alignment_list, FUN = rownames)))
+  sequences_select(alignment_list = backbone_alignment_list, nms = nms)
+}
+
 #' @name supermatrices_get
 #' @title Create supermatrices from list of alignments and groups object
 #' @description Return a supermatrices object from a list of alignments
@@ -137,11 +170,21 @@ supermatrices_get <- function(alignment_list, groups = NULL, column_cutoff = .5,
     nms <- unique(unname(unlist(lapply(X = alignment_list, FUN = rownames))))
     groups <- list('all' = nms)
     class(groups) <- 'groups'
+    grp_ids <- 'all'
+  } else {
+    groups <- groups[names(groups) != 'unmatched']
+    grp_ids <- names(groups)
+    grp_ids <- c(grp_ids, 'backbone')
   }
-  for (grp_id in names(groups)) {
-    nms <- groups[[grp_id]]
-    # select sequences from alignments
-    selected <- sequences_select(nms = nms, alignment_list = alignment_list)
+  for (grp_id in grp_ids) {
+    if (grp_id == 'backbone') {
+      selected <- backbone_sequences_select(groups = groups,
+                                            alignment_list = alignment_list)
+    } else {
+      nms <- groups[[grp_id]]
+      # select sequences from alignments
+      selected <- sequences_select(nms = nms, alignment_list = alignment_list)
+    }
     # filter selected sequences
     filtered <- sequences_filter(alignment_list = selected,
                                  cutoff = column_cutoff, min_nbps = min_nbps)
